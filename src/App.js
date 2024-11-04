@@ -1,24 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
 
+import './App.css';
+import BasicsHolder from './basicsHolder';
+import Tabs from './Tabs';
+import { useState } from 'react';
+import DataFetch from './DataFetch';
+import ReducerCounter from './ReducerCounter';
+import ReducerDataFetch from './ReducerDataFetch';
 function App() {
+  // selected Tab
+  const [selected, setSelected] = useState(1);
+  // switches content based on the selected tab
+  let content =  () => {
+  switch(String(selected)){
+  case '0':
+    return (<BasicsHolder></BasicsHolder>)
+  case '1':
+    return (<>
+    <DataFetch></DataFetch>
+    </>)
+  case '2':
+    return (<>
+      <ReducerCounter></ReducerCounter>
+      <ReducerDataFetch></ReducerDataFetch>
+      </>)
+
+  default:
+    return (<>no tabs selected</>)
+}
+  }
+    
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    <Tabs selected={selected} setSelected = {setSelected}></Tabs>
+   
+    <div>
+      {content()}
     </div>
+   
+    
+    
+    </>
   );
 }
 
